@@ -15,7 +15,10 @@ export default function BookmarkCounter() {
   }
 
   useEffect(() => {
-    readCount();
+    async function init() {
+      readCount();
+    }
+    init();
     window.addEventListener("bookmarks-updated", readCount);
     return () => window.removeEventListener("bookmarks-updated", readCount);
   }, []);

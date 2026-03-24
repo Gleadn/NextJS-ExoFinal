@@ -25,6 +25,7 @@ export default async function SinglePage({
   const title = asText(job.data.title);
   const date = formatDate(job.data.date);
   const tags = job.data.tags ?? [];
+  const adminEmails = (job.data.admin_emails ?? []).map((item) => item.email ?? "").filter(Boolean);
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-10">
@@ -65,7 +66,7 @@ export default async function SinglePage({
         <PrismicRichText field={job.data.description} />
       </div>
 
-      <ApplicationForm jobUid={slug} jobTitle={title} />
+      <ApplicationForm jobUid={slug} jobTitle={title} adminEmails={adminEmails} />
     </div>
   );
 }

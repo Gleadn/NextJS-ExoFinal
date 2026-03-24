@@ -5,9 +5,11 @@ import { useState } from "react";
 interface Props {
   jobUid: string;
   jobTitle: string;
+  adminEmails: string[];
 }
 
-export default function ApplicationForm({ jobUid, jobTitle }: Props) {
+export default function ApplicationForm({ jobUid, jobTitle, adminEmails }: Props) {
+  const [candidateEmail, setCandidateEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -17,11 +19,19 @@ export default function ApplicationForm({ jobUid, jobTitle }: Props) {
 
     setStatus("sending");
 
+    const mailObject = {
+      to: adminEmails,
+      from: candidateEmail,
+      subject: `Candidature — ${jobTitle}`,
+      body: message,
+    };
+    console.log("[Candidature] Mail object:", mailObject);
+
     try {
       const res = await fetch("/api/candidature", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ jobUid, jobTitle, message }),
+        body: JSON.stringify({ jobUid, jobTitle, message, candidateEmail, adminEmails }),
       });
 
       if (!res.ok) throw new Error();
@@ -55,6 +65,15 @@ export default function ApplicationForm({ jobUid, jobTitle }: Props) {
       onSubmit={handleSubmit}
       className="border border-gray-300 rounded p-4 flex flex-col gap-3 bg-white"
     >
+      <input
+        type="email"
+        value={candidateEmail}
+        onChange={(e) => setCandidateEmail(e.target.value)}
+        placeholder="Votre email"
+        required
+        className="w-full outline-none text-sm text-gray-600 placeholder-gray-400 border-b border-gray-200 pb-2"
+        disabled={status === "sending"}
+      />
       <textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
@@ -66,7 +85,7 @@ export default function ApplicationForm({ jobUid, jobTitle }: Props) {
       <div className="flex justify-end">
         <button
           type="submit"
-          disabled={status === "sending" || !message.trim()}
+          disabled={status === "sending" || !message.trim() || !candidateEmail.trim()}
           className="px-4 py-1.5 text-sm text-white rounded disabled:opacity-50 cursor-pointer"
           style={{ backgroundColor: "var(--accent)" }}
         >

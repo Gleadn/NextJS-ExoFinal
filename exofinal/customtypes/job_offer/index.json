@@ -48,6 +48,21 @@
           "placeholder": "Description de l'offre...",
           "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
         }
+      },
+      "admin_emails": {
+        "type": "Group",
+        "config": {
+          "label": "Emails administrateurs",
+          "fields": {
+            "email": {
+              "type": "Text",
+              "config": {
+                "label": "Email",
+                "placeholder": "admin@entreprise.com"
+              }
+            }
+          }
+        }
       }
     }
   }

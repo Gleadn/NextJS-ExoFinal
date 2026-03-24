@@ -8,11 +8,16 @@ export interface JobOfferDocumentDataTagsItem {
   tag: prismic.KeyTextField;
 }
 
+export interface JobOfferDocumentDataAdminEmailsItem {
+  email: prismic.KeyTextField;
+}
+
 export interface JobOfferDocumentData {
   title: prismic.TitleField;
   date: prismic.DateField;
   tags: prismic.GroupField<JobOfferDocumentDataTagsItem>;
   description: prismic.RichTextField;
+  admin_emails: prismic.GroupField<JobOfferDocumentDataAdminEmailsItem>;
 }
 
 export type JobOfferDocument<Lang extends string = string> =
