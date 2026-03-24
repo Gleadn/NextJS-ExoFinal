@@ -1,0 +1,18 @@
+{
+  "id": "mentions",
+  "label": "Mentions légales",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "content": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Contenu",
+          "placeholder": "Contenu des mentions légales...",
+          "multi": "paragraph,heading2,heading3,strong,em,hyperlink,list-item,o-list-item"
+        }
+      }
+    }
+  }
+}
