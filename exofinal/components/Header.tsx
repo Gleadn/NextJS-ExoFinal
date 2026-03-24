@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import BookmarkCounter from "./BookmarkCounter";
 
 export default function Header() {
   return (
-    <header style={{ backgroundColor: "var(--header-bg)" }} className="w-full">
+    <header style={{ backgroundColor: "var(--header-bg)" }} className="w-full sticky top-0 z-50">
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
         <Link href="/" aria-label="DEV — Accueil">
           <svg width="80" height="21" viewBox="0 0 80 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,13 +22,16 @@ export default function Header() {
             </defs>
           </svg>
         </Link>
-        <Link
-          href="/profil"
-          className="text-white hover:opacity-75 transition-opacity"
-          aria-label="Mon profil"
-        >
-          <Image src="/icons/login.png" alt="Mon profil" width={24} height={24} />
-        </Link>
+        <div className="flex items-center gap-4">
+          <BookmarkCounter />
+          <Link
+            href="/profil"
+            className="text-white hover:opacity-75 transition-opacity"
+            aria-label="Mon profil"
+          >
+            <Image src="/icons/login.png" alt="Mon profil" width={24} height={24} className="brightness-0 invert" />
+          </Link>
+        </div>
       </div>
     </header>
   );
